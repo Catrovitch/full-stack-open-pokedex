@@ -50,6 +50,7 @@ module.exports = {
     'jest': true,
     'describe': true,
     'it': true,
-    'expect': true
+    'expect': true,
+    'cy': true
   }
 }
