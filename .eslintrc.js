@@ -45,5 +45,11 @@ module.exports = {
     ],
     'no-console': 'error',
     'react/prop-types': 0
+  },
+  'globals': {
+    'jest': true,
+    'describe': true,
+    'it': true,
+    'expect': true
   }
 }
