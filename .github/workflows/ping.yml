@@ -26,8 +26,8 @@ jobs:
       - name: Ping succeeded
         if: success()
         run: |
-          echo "Date and Time: $(date)" >>  $GITHUB_WORKSPACE/health_check_results.txt
-          echo "Success pinging https://pokedex-extra.fly.dev/" >>  $GITHUB_WORKSPACE/health_check_results.txt
+          echo "Date and Time: $(date)" >>  health_check_results.txt
+          echo "Success pinging https://pokedex-extra.fly.dev/" >>  health_check_results.txt
           echo "" >>  $GITHUB_WORKSPACE/health_check_results.txt
           git config --global user.email "actions@example.com"
           git config --global user.name "GitHub Actions"
@@ -40,8 +40,8 @@ jobs:
       - name: Ping failed
         if: failure()
         run: |
-          echo "Date and Time: $(date)" >> $GITHUB_WORKSPACE/health_check_results.txt
-          echo "Failed pinging https://pokedex-extra.fly.dev/" >> $GITHUB_WORKSPACE/health_check_results.txt
+          echo "Date and Time: $(date)" >> health_check_results.txt
+          echo "Failed pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
           echo "" >> $GITHUB_WORKSPACE/health_check_results.txt
           git config --global user.email "actions@example.com"
           git config --global user.name "GitHub Actions"
