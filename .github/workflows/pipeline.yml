@@ -57,10 +57,11 @@ jobs:
           if: success()
           uses: rjstone/discord-webhook-notify@v1
           with:
-            severity: success
-            details: |
-              New version deployed successfully!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+              severity: info
+              color: '#ff00aa'
+              description: See repo https://github.com/Catrovitch/full-stack-open-pokedex
+              text: The deployment succeeded!
+              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         
         - name: Send Discord Notification - Failure
           if: failure()
@@ -70,8 +71,6 @@ jobs:
             details: |
               Build or deployment failed!
               Failure details:
-              - Branch: ${{ github.ref }}
-              - Commit: ${{ github.sha }}
+              - Commit URL: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
               - Commit Message: ${{ github.event.head_commit.message }}
-              - Workflow Run URL: ${{ github.event.workflow_run_url }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
