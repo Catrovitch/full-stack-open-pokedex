@@ -18,28 +18,3 @@ jobs:
           max-attempts: 3
           retry-delay: 5s
           retry-all: false
-
-  results_to_file:
-    needs: [url_health_check]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ping succeeded
-        if: success()
-        run: |
-          echo "Date and Time: $(date)" >> health_check_results.txt
-          echo "Success pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
-          echo "" >> health_check_results.txt
-          
-      - name: Ping failed
-        if: failure()
-        run: |
-          echo "Date and Time: $(date)" >> health_check_results.txt
-          echo "Failed pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
-          echo "" >> health_check_results.txt
-
-      - name: Save health check results to artifact
-        if: always()  # Ensure this step runs even if previous steps fail
-        uses: actions/upload-artifact@v2
-        with:
-          name: health_check_results
-          path: health_check_results.txt
