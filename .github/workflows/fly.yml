@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Deploy if push event
+        if: ${{ github.event_name == 'push' }}
+        run: flyctl deploy
+          env:
+            FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
