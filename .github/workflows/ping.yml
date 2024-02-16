@@ -22,5 +22,9 @@ jobs:
       - name: Append results to file
         run: |
           echo "Date and Time: $(date)" >> health_check_results.txt
-          echo "${{ steps.health_check.outputs.results }}" >> health_check_results.txt
+          if success(); then
+            echo "Success pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
+          else
+            echo "Couldn't ping https://pokedex-extra.fly.dev/ >> health_check_results.txt
+          fi
           echo "" >> health_check_results.txt
