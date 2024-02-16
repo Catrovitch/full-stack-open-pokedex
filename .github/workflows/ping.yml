@@ -1,9 +1,9 @@
 name: Health Check
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '0 0 * * *'
+
 
 jobs:
   url_health_check:
