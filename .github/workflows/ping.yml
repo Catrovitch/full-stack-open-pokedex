@@ -23,4 +23,4 @@ jobs:
       - name: Append results to file
         run: |
           echo "Date and Time: $(date)" >> health_check_results.txt
-          echo "${{ steps.health_check.outputs.results }}" >> health_check_results.txt
+          echo "${{ steps.health_check.outputs.results }}" >> ../../health_check_results.txt
