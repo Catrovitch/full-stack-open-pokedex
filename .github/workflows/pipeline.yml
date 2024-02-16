@@ -47,3 +47,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+
+  notify_discord:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-latest
+    if: always() && github.event_name == 'push'
+    steps:
+      - name: Send Discord Notification - Success
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: success
+          details: New version deployed successfully!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      
+      - name: Send Discord Notification - Failure
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          details: |
+            Build or deployment failed! Check the workflow run for more details.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
