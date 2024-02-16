@@ -18,9 +18,9 @@ jobs:
           max-attempts: 3
           retry-delay: 5s
           retry-all: false
-          cookie: "token=asdf1234"
 
       - name: Append results to file
         run: |
           echo "Date and Time: $(date)" >> health_check_results.txt
           echo "${{ steps.health_check.outputs.results }}" >> health_check_results.txt
+          echo "" >> health_check_results.txt
