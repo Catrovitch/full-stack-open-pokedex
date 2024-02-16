@@ -23,6 +23,8 @@ jobs:
       needs: [url_health_check]
       runs-on: ubuntu-latest
       steps:
+      - name: Print current directory
+        run: pwd
       - name: Ping succeeded
         if: success()
         run: |
