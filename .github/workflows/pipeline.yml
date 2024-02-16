@@ -10,6 +10,7 @@ on:
 
 jobs:
   simple_deployment_pipeline:
+    if: github.event_name == 'push'
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -32,17 +33,17 @@ jobs:
           wait-on: http://localhost:5000
 
   tag_release:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, '#skip') == false
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: '0'
-    - name: Bump version and push tag
-      if: ${{ github.event_name == 'push' }}
-      uses: anothrNick/github-tag-action@1.64.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DEFAULT_BUMP: patch
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
