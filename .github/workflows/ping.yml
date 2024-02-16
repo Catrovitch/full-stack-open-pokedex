@@ -19,12 +19,19 @@ jobs:
           retry-delay: 5s
           retry-all: false
 
-      - name: Append results to file
+  results_to_file:
+      needs: [url_health_check]
+      runs-on: ubuntu-latest
+      steps:
+      - name: Ping succeeded
+        if: success()
         run: |
           echo "Date and Time: $(date)" >> health_check_results.txt
-          if success(); then
-            echo "Success pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
-          else
-            echo "Couldn't ping https://pokedex-extra.fly.dev/ >> health_check_results.txt
-          fi
+          echo "Success pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
+          echo "" >> health_check_results.txt
+      - name: Ping failed
+        if: failure()
+        run: |
+          echo "Date and Time: $(date)" >> health_check_results.txt
+          echo "Failed pinging https://pokedex-extra.fly.dev/" >> health_check_results.txt
           echo "" >> health_check_results.txt
